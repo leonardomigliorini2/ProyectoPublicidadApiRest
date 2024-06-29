@@ -16,4 +16,5 @@ import java.util.function.Function;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment,Long> {
 
+
 }

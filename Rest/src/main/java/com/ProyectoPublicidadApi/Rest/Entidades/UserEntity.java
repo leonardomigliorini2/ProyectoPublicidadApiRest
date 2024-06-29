@@ -2,32 +2,44 @@ package com.ProyectoPublicidadApi.Rest.Entidades;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+    @Column
     private String lastName;
+    @Column
     private String email;
+    @Column
     private String password;
+    @Column
     private String contact;
+    @Column
     private String address; //telefono
     @OneToOne
     private Imagen image;
 
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment>coments;
+
     public UserEntity() {
     }
 
-    public UserEntity(String name, Long id, String lastName, String password, String email, String address, String contact, Imagen image) {
-        this.name = name;
+    public UserEntity(Long id, String name, String lastName, String email, String password, String contact, String address, Imagen image, List<Comment> coments) {
         this.id = id;
+        this.name = name;
         this.lastName = lastName;
-        this.password = password;
         this.email = email;
-        this.address = address;
+        this.password = password;
         this.contact = contact;
+        this.address = address;
         this.image = image;
+        this.coments = coments;
     }
 
     public Long getId() {
@@ -92,5 +104,13 @@ public class UserEntity {
 
     public void setImage(Imagen image) {
         this.image = image;
+    }
+
+    public List<Comment> getComents() {
+        return coments;
+    }
+
+    public void setComents(List<Comment> coments) {
+        this.coments = coments;
     }
 }

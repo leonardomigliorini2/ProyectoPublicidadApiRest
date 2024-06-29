@@ -1,7 +1,7 @@
 package com.ProyectoPublicidadApi.Rest.Service;
 
 
-import com.ProyectoPublicidadApi.Rest.Entidades.Comment;
+
 import com.ProyectoPublicidadApi.Rest.Entidades.UserEntity;
 import com.ProyectoPublicidadApi.Rest.Repository.CommentRepository;
 import com.ProyectoPublicidadApi.Rest.Repository.UserEntityRepository;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +21,8 @@ private UserEntityRepository userEntityRepository;
 @Autowired
 private CommentRepository commentRepository;
 
-public List<UserEntity> UserList(){
-return this.userEntityRepository.findAll();
+public List<UserEntity>ListUsers(){
+    return this.userEntityRepository.findAll();
 }
 
 @Transactional
@@ -36,6 +36,7 @@ public String CrearUserEntity(UserEntity request)throws MyExceptions{
         userEntity.setLastName(request.getLastName());
         userEntity.setPassword(request.getPassword());
         userEntity.setImage(request.getImage());
+        userEntity.setComents(request.getComents());
         userEntityRepository.save(userEntity);
         return "se creo en la base de datos un nuevo usuario exitosamente";
 
@@ -59,6 +60,9 @@ public void validacion(UserEntity request) throws MyExceptions {
     if (request.getPassword().isEmpty()||request.getPassword()==null){
         throw new MyExceptions("la contraseña esta vacia o es nula");
     }
+   if (request.getComents().isEmpty()|| request.getComents()==null){
+        throw new MyExceptions("la lista de comentarios esta vacia o es nula");
+    };
 }
 @Transactional
 public String modificarUserEntity(Long id,UserEntity request)throws MyExceptions{
@@ -73,6 +77,7 @@ public String modificarUserEntity(Long id,UserEntity request)throws MyExceptions
         userEntity.setLastName(request.getLastName());
         userEntity.setPassword(request.getPassword());
         userEntity.setImage(request.getImage());
+        userEntity.setComents(request.getComents());
         userEntityRepository.save(userEntity);
         return "se ha modificado con exito el usuario en la base de datos";
     }else {throw new MyExceptions("el id no corresponde a un usuario de la base de datos");}
@@ -80,12 +85,10 @@ public String modificarUserEntity(Long id,UserEntity request)throws MyExceptions
 @Transactional
 public String eliminarUserEntity(Long id) throws MyExceptions {
     Optional<UserEntity>exist=userEntityRepository.findById(id);
-        List<Comment>ListadeComentarios=new ArrayList();
 
     if (exist.isPresent()){
-        UserEntity userEntity=userEntityRepository.getById(id) ;
-        Comment comentario=commentRepository.getById(id);
-        userEntityRepository.deleteById(id);
+        UserEntity user=userEntityRepository.getById(id);
+        this.userEntityRepository.delete(user);
         return "el usuario se ha eliminado de la base de datos";
     }else {throw new MyExceptions("el usuario no existe en la base de datos y no se ha podido eliminar");}
 

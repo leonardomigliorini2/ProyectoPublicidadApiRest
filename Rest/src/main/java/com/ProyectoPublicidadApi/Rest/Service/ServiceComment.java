@@ -19,9 +19,9 @@ public class ServiceComment {
         Validacion(request);
         try{
         Comment comment = new Comment();
-        comment.setUsuario(request.getUsuario());
         comment.setFecha(request.getFecha());
         comment.setContenido(request.getContenido());
+        comment.setUserEntity(request.getUserEntity());
         commentRepository.save(comment);
         return "se ha guardado un comentario exitosamente en la base de datos";}
         catch (Exception e){
@@ -40,7 +40,7 @@ public class ServiceComment {
         Comment comment=commentRepository.getById(id);
         comment.setContenido(request.getContenido());
         comment.setFecha(request.getFecha());
-        comment.setUsuario(request.getUsuario());
+        comment.setUserEntity(request.getUserEntity());
         commentRepository.save(comment);
         return "se han guardado exitosamente los cambios en la base de datos";}
         else {throw new MyExceptions("el id no corresponde a ningún comentario");}
@@ -64,11 +64,12 @@ public void Validacion(Comment request) throws MyExceptions {
     if (request.getContenido() == null || request.getContenido().isEmpty()) {
         throw new MyExceptions("el contenido es nulo o esta vacio");
     }
-    if (request.getUsuario() == null) {
-        throw new MyExceptions("el usuario es nulo o es inexistente");
-    }
+
     if (request.getFecha() == null) {
         throw new MyExceptions("la fecha es nulo o es inexistente");
+    }
+    if (request.getUserEntity()==null){
+        throw new MyExceptions("el usuario es nulo");
     }
 }
 

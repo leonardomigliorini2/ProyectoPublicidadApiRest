@@ -14,17 +14,18 @@ public class Comment {
     @Column(columnDefinition = "LONGTEXT")
     private String contenido;
     @ManyToOne
-    private UserEntity usuario;
+    @JoinColumn(name = "usuario_id")
+    private UserEntity userEntity;
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date fecha;
 
     public Comment() {
     }
 
-    public Comment(Long id, String contenido, UserEntity usuario, Date fecha) {
+    public Comment(Long id, String contenido, UserEntity userEntity, Date fecha) {
         this.id = id;
         this.contenido = contenido;
-        this.usuario = usuario;
+        this.userEntity = userEntity;
         this.fecha = fecha;
     }
 
@@ -44,12 +45,12 @@ public class Comment {
         this.contenido = contenido;
     }
 
-    public UserEntity getUsuario() {
-        return usuario;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setUsuario(UserEntity usuario) {
-        this.usuario = usuario;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public Date getFecha() {
