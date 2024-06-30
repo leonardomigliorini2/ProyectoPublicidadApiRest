@@ -36,7 +36,6 @@ public String CrearUserEntity(UserEntity request)throws MyExceptions{
         userEntity.setLastName(request.getLastName());
         userEntity.setPassword(request.getPassword());
         userEntity.setImage(request.getImage());
-        userEntity.setComents(request.getComents());
         userEntityRepository.save(userEntity);
         return "se creo en la base de datos un nuevo usuario exitosamente";
 
@@ -45,7 +44,7 @@ public void validacion(UserEntity request) throws MyExceptions {
     if (request.getName().isEmpty()||request.getName()==null){
         throw new MyExceptions("el nombre esta vacio o es nulo");
     }
-    if (request.getLastName().isEmpty()||request.getLastName()==null){
+    if (request.getLastName()==null||request.getLastName().isEmpty()){
         throw new MyExceptions("el apellido esta vacio o es nulo");
     }
     if (request.getAddress().isEmpty()|| request.getAddress()==null){
@@ -60,9 +59,8 @@ public void validacion(UserEntity request) throws MyExceptions {
     if (request.getPassword().isEmpty()||request.getPassword()==null){
         throw new MyExceptions("la contraseña esta vacia o es nula");
     }
-   if (request.getComents().isEmpty()|| request.getComents()==null){
-        throw new MyExceptions("la lista de comentarios esta vacia o es nula");
-    };
+
+
 }
 @Transactional
 public String modificarUserEntity(Long id,UserEntity request)throws MyExceptions{

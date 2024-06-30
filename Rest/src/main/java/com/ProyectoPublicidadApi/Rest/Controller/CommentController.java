@@ -1,19 +1,21 @@
 package com.ProyectoPublicidadApi.Rest.Controller;
 
 import com.ProyectoPublicidadApi.Rest.Entidades.*;
+import com.ProyectoPublicidadApi.Rest.Repository.UserEntityRepository;
 import com.ProyectoPublicidadApi.Rest.Service.ServiceComment;
 import com.ProyectoPublicidadApi.Rest.exceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CommentController {
     @Autowired
     private ServiceComment commentService;
 
-    // Create
+
     @PostMapping(value="/CrearComentario")
     public String createComment(@RequestBody Comment request) throws MyExceptions{
         commentService.createComment(request);

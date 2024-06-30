@@ -2,6 +2,7 @@ package com.ProyectoPublicidadApi.Rest.Service;
 
 import com.ProyectoPublicidadApi.Rest.Entidades.*;
 import com.ProyectoPublicidadApi.Rest.Repository.CommentRepository;
+import com.ProyectoPublicidadApi.Rest.Repository.UserEntityRepository;
 import com.ProyectoPublicidadApi.Rest.exceptions.MyExceptions;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,11 @@ import java.util.*;
 public class ServiceComment {
     @Autowired
     private CommentRepository commentRepository;
+
+
     @Transactional
     public String createComment(Comment request)throws MyExceptions {
+
         Validacion(request);
         try{
         Comment comment = new Comment();
