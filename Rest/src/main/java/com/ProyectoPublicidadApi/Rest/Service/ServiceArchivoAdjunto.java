@@ -45,10 +45,7 @@ public class ServiceArchivoAdjunto {
         Validacion(request.getNombre(), request.getContenido(), request.getTipo());
         File archivo = new File(request.getContenido());
         try {
-           /* PrintWriter Salida = new PrintWriter(new FileWriter(archivo, true));
-            Salida.println(request.getContenido());
-            Salida.close();
-            System.out.println("se escribio en el archivo");*/
+
             PrintWriter Salida=new PrintWriter(archivo);
             Salida.close();
             System.out.println("se creo el archivo");

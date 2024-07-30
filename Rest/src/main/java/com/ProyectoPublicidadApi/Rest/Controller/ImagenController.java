@@ -32,24 +32,6 @@ public class ImagenController {
     }
 
 
-
-
-    /*@GetMapping("/carga/{id}")
-    public ResponseEntity<byte[]> imagenUsuario (@PathVariable Long id){
-        UserEntity userEntity = userService.getUserById(id);
-
-        byte[] image= userEntity.getImage().getContenido();
-
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.IMAGE_JPEG);
-
-
-
-        return new ResponseEntity<>(image,headers, HttpStatus.OK);
-    }*/
-
-
     @PutMapping(value = "/update/{id}")
     public String  updateImage(@PathVariable Long id, @RequestParam("Imagen[]") MultipartFile archivo) throws MyExceptions, IOException {
         imageService.UpdateImage(archivo, id);
